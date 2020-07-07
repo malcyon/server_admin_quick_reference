@@ -289,7 +289,7 @@ Alternate version (only shows one level):
 
     ls -li
 
-    find . inem <inode number> -exec rm -l {} \;
+    find . inum <inode number> -exec rm -l {} \;
 
 
 
