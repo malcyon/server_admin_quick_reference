@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is an assorted list of potentially useful Unix commands. These are commands I've found useful in the past that I don't want to forget.
+This is an assorted list of Unix commands. These are commands I've found useful in the past that I don't want to forget.
 
 ## Table of Contents
 - [Filesystem Commands](#filesystem-commands)
