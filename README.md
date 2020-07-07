@@ -307,3 +307,97 @@ Alternate version (only shows one level):
     KubeEvents | where TimeGenerated > ago(1d)
 
     KubeEvents | where SourceComponent == "cluster-autoscaler"
+
+
+
+## Vim
+
+#### Removing ^M characters at end of lines in vi
+
+    :%s/^V^M//g
+
+The ^V is a CONTROL-V character and ^M is a CONTROL-M. When you type this, it will look like this:
+
+    :%s/^M//g
+
+alternate command:
+
+    dos2unix <filename>
+
+
+#### Comment a block of text in vim
+
+- control-V
+- <highlight text with cursor> (use arrow keys. Only one column will be highlighted)
+- shift-I
+- #
+- escape
+
+
+#### Copy column in vim
+
+ - control-V
+ - <highlight text with cursor>
+ - p
+
+
+
+#### Opening a new file in vim
+
+    :n <filename>
+
+    :e <filename>
+
+
+
+#### List buffers
+
+    :ls
+
+
+
+#### Switch to a different buffer
+
+    :b<buffer number>
+
+    :bnext
+
+    :bprev
+
+
+
+#### Open file in new tab
+
+    :tabe <filename>
+
+
+
+#### Multiple Windows in Vim
+
+| Syntax | Description |
+| ----------- | ----------- |
+| :split \<filename\> | split window and load another file |
+| vplit \<filename\> | vertical split |
+| ctrl-w up arrow | move cursor up a window |
+| ctrl-w ctrl-w | move cursor to another window (cycle) |
+| ctrl-w_ | maxmize current window |
+| ctrl-w= | make all equal size |
+| 10 ctrl-w+ | increase window size by 10 lines |
+| :hide | close current window |
+| :only | keep only this window open |
+
+
+#### Enable mouse in vim (lets you resize split windows)
+    :set mouse=a
+
+
+#### Set tab to 4 spaces
+
+    set smartindent
+    set tabstob=4
+    set shiftwidth=4
+    set expandtab
+
+
+#### Enable tab character
+    set noexpandtab
