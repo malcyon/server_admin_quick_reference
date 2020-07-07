@@ -338,7 +338,7 @@ alternate command:
 #### Copy column in vim
 
  - control-V
- - <highlight text with cursor>
+ - \<highlight text with cursor\>
  - p
 
 
