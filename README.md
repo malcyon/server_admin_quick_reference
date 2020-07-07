@@ -4,6 +4,7 @@
 1. [Filesystem Commands](#filesystem-commands)
 2. [Kubernetes Commands](#kubernetes-commands)
 3. [Vim](#vim)
+4. [Miscellaneous](#miscellaneous)
 
 
 ## Introduction
@@ -402,3 +403,263 @@ alternate command:
 
 #### Enable tab character
     set noexpandtab
+
+
+## Miscellaneous
+
+#### Sending a text file via e-mail
+
+    mailx -s "SUBJECT" email@example.com < file.out
+
+
+#### Show how many rows and columns your display is set to
+
+    resize
+
+
+
+#### System logs are located at:
+
+On Linux:
+
+    /var/log/messages
+
+On HP-UX:
+
+    /var/adm/syslog
+
+
+#### List all files in tar archive
+
+    tar -tvf filename.tar
+
+
+
+#### Tar a directory
+
+    tar -cvf <name>.tar <directoryname>
+
+
+
+#### See which packages are assigned where in a failover
+
+##### HP-UX
+
+    cmviewcl
+
+##### AIX
+
+      /usr/sbin/cluster/utilities/clfindres
+
+Or this command:
+
+      /usr/sbin/cluster/clstat
+
+
+
+#### Getting a list of installed packages on hp
+
+    swlist
+
+    swlist -l patch
+
+
+
+#### Getting list of products from a depot file (HP-UX)
+
+    swlist -d -s <depot filename>
+
+
+
+#### Installing product from a depot (HP-UX)
+
+    swinstall -s <depot filename>
+
+
+
+#### Getting a list of installed packages an AIX
+
+    lslpp -L
+
+
+
+#### Converting unix epoch seconds to exec serial date format
+
+    =A1/86400+(25569-(5/24))
+
+
+
+#### Print contents of a file in reverse order
+
+    sed -s '1!G;h;$p'
+
+
+
+#### Get checksum of a file
+
+    cksum <filename>
+
+
+
+#### Search contents of all files in a directory for a string
+
+    grep "string to search" *
+
+
+
+#### Repeat a command every 5 seconds
+
+    watch -n5 <command>
+
+
+
+#### Show OS limits for a process (Linux only)
+
+    cat /proc/<PID>/llimits
+
+
+
+#### Print file in binary format
+
+xxd -b <filename>
+
+
+
+#### Print file in hexadecimal format
+
+    hexdump <filename>
+
+
+
+#### Print file in octal format
+
+    od <filename>
+
+
+
+#### See all environment variables for a process running on Linux:
+
+    xargs -n 1 0 < /proc/<PID>/environ
+
+
+
+#### Getting Centrify info on a user
+
+    adinfo -u <user id>
+
+
+
+#### Check if a server is a physical or virtual
+
+##### Linux
+
+    dmidecode -t 1
+
+Output:
+
+    "Manufacturer: Vmware, Inc." is a virtual
+
+
+
+##### AIX
+
+    lparstat -I | grep Type
+
+Output:
+
+    Shared-SMT is a virtual
+
+    Dedicated-SMT is physical
+
+
+##### HP-UX
+
+    model
+
+Output:
+
+    "ia64 hp server Integrity Virtual Machine" is a virtual
+
+    "ia64 hp server rx260" is a physical
+
+
+
+##### Windows
+
+    systeminfo
+
+
+Output:
+
+    "System Manufacturer: System Manufacturer" is a physical
+
+    "System Manufacturer: Vmware, Inc. System Model: VMWare Virtual Platform" is a virtual
+
+
+
+#### List kernel parameters
+
+##### HP-UX 11.11
+
+    /usr/sbin/kmtune -l
+
+
+
+##### HP-UX 11.23 and above
+
+    kctune
+
+    cat /stand/tunes
+
+
+List details about a particular parameter
+
+    kctune -v -q maxuprc
+
+
+
+##### Redhat
+
+    sysctl -a
+
+
+
+
+
+#### SSH to box without password
+
+    ssh-keygen -t rsa
+
+    ssh-copy-id <userid>@<hostname>
+
+    ssh <userid>@<hostname>
+
+
+#### Getting process list with full arguments an HP-UX
+
+    /usr/bin/env UNIX95=1 /bin/ps -eo 'state,uid,ppid,args'
+
+
+
+#### Syncronize panes in Tmux
+
+    :setw synchronize-panes
+
+
+#### Bind key for synchronize-panes in Tmux
+
+    bind a set-window-option synchronize-panes
+
+
+
+#### Switching version of a tool on Redhat
+
+    scl enable python27 python (opens a python shell)
+
+    scl enable python27 bash (opens a new bash shell with python configured)
+
+
+
+#### Color diff in two columns
+
+    sdiff -w 230 <file 1> <file 2> | colordiff | less -r
