@@ -1,7 +1,10 @@
 # Server Administration Quick Reference
 
+## Introduction
+
+This is an assorted list of potentially useful Unix commands. These are commands I've found useful in the past that I don't want to forget.
+
 ## Table of Contents
-- [Introduction](#introduction)
 - [Filesystem Commands](#filesystem-commands)
     + [Zeroing out a file](#zeroing-out-a-file)
     + [Grep multiple files across multiple directories](#grep-multiple-files-across-multiple-directories)
@@ -74,10 +77,11 @@
     + [See which packages are assigned where in a failover](#see-which-packages-are-assigned-where-in-a-failover)
       - [HP-UX](#hp-ux-4)
       - [AIX](#aix)
-    + [Getting a list of installed packages on hp](#getting-a-list-of-installed-packages-on-hp)
+    + [Getting a list of installed packages](#getting-a-list-of-installed-packages)
+      - [HP-UX](#hp-ux-5)
+      - [AIX](#aix-1)
     + [Getting list of products from a depot file (HP-UX)](#getting-list-of-products-from-a-depot-file--hp-ux-)
     + [Installing product from a depot (HP-UX)](#installing-product-from-a-depot--hp-ux-)
-    + [Getting a list of installed packages an AIX](#getting-a-list-of-installed-packages-an-aix)
     + [Converting unix epoch seconds to exec serial date format](#converting-unix-epoch-seconds-to-exec-serial-date-format)
     + [Print contents of a file in reverse order](#print-contents-of-a-file-in-reverse-order)
     + [Get checksum of a file](#get-checksum-of-a-file)
@@ -91,8 +95,8 @@
     + [Getting Centrify info on a user](#getting-centrify-info-on-a-user)
     + [Check if a server is a physical or virtual](#check-if-a-server-is-a-physical-or-virtual)
       - [Linux](#linux-4)
-      - [AIX](#aix-1)
-      - [HP-UX](#hp-ux-5)
+      - [AIX](#aix-2)
+      - [HP-UX](#hp-ux-6)
       - [Windows](#windows)
     + [List kernel parameters](#list-kernel-parameters)
       - [HP-UX 11.11](#hp-ux-1111)
@@ -157,14 +161,32 @@
       - [Systemd](#systemd)
     + [List all services](#list-all-services)
     + [Disable/enable a service on startup](#disable-enable-a-service-on-startup)
+- [Java Keytool](#java-keytool)
+    + [List Certs in a Keystore](#list-certs-in-a-keystore)
+    + [Add Cert to Keystore](#add-cert-to-keystore)
+    + [Delete Cert from Keystore](#delete-cert-from-keystore)
+    + [Download Cert from Wedsite](#download-cert-from-wedsite)
+    + [Creating a self-signed cert](#creating-a-self-signed-cert)
+    + [Creating a pfx file](#creating-a-pfx-file)
+    + [Export the private key from PFX](#export-the-private-key-from-pfx)
+    + [Convert PFX to PEM file](#convert-pfx-to-pem-file)
+    + [Remove passphrase from private key](#remove-passphrase-from-private-key)
+    + [Convert PFX to key and cert file](#convert-pfx-to-key-and-cert-file)
+    + [Validating the key and cert (md5 should be the same)](#validating-the-key-and-cert--md5-should-be-the-same-)
+- [Docker](#docker)
+    + [Enabling non-root user to run Docker client](#enabling-non-root-user-to-run-docker-client)
+    + [Starting an interactive session](#starting-an-interactive-session)
+      - [Get shell inside running container](#get-shell-inside-running-container)
+    + [Creating a new base image](#creating-a-new-base-image)
+    + [Inspecting a container](#inspecting-a-container)
+    + [Removing docker0 bridge](#removing-docker0-bridge)
+- [Mac](#mac)
+    + [Fixing hostname](#fixing-hostname)
+    + [Getting AD Groups](#getting-ad-groups)
 
 
 
 
-
-## Introduction
-
-This is an assorted list of potentially useful Unix commands. These are commands I've found useful in the past that I don't want to forget.
 
 
 ## Filesystem Commands
@@ -612,12 +634,18 @@ Or this command:
 
 
 
-#### Getting a list of installed packages on hp
+#### Getting a list of installed packages
+
+##### HP-UX
 
     swlist
 
     swlist -l patch
 
+
+##### AIX
+
+    lslpp -L
 
 
 #### Getting list of products from a depot file (HP-UX)
@@ -630,11 +658,6 @@ Or this command:
 
     swinstall -s <depot filename>
 
-
-
-#### Getting a list of installed packages an AIX
-
-    lslpp -L
 
 
 
@@ -676,7 +699,7 @@ Or this command:
 
 #### Print file in binary format
 
-xxd -b <filename>
+    xxd -b <filename>
 
 
 
@@ -836,7 +859,7 @@ List details about a particular parameter
 
 #### Show what process is using a particular port
 
-  lsof -i :9703
+    lsof -i :9703
 
 
 Alternatively, you can run:
@@ -1153,3 +1176,139 @@ Systemd
     systemctl disable <service name>
 
     systemctl enable<service name>
+
+
+## Java Keytool
+
+#### List Certs in a Keystore
+
+    /usr/java/latest/bin/keytool -keystore /usr/java/latest/jre/lib/security/cacerts --list
+
+
+
+#### Add Cert to Keystore
+
+    /usr/java/latest/bin/keytool -keystore /usr/java/latest/jre/lib/security/cacerts -import -file <path to cert> -alias example.domain.com -storepass PASSWORD -noprompt
+
+
+
+#### Delete Cert from Keystore
+
+    /usr/java/latest/bin/keytool -keystore /usr/java/latest/jre/lib/security/cacerts -delete -alias example.domain.com -storepass PASSWORD -noprompt
+
+
+
+#### Download Cert from Wedsite
+
+    openssl x609 -in <(openssl s_client -connect example.domain.com:443 -prexit 2>/dev/null)
+
+
+
+#### Creating a self-signed cert
+
+    openssl req -newkey rsa:2048 -nodes -keyout filename-key.pem -509 -days 365 -out filename-cert.pem
+
+
+
+#### Creating a pfx file
+
+    openssl pkcs12 -export -out filename.pfx -inkey filename-key.pem -in filename-cert.pem
+
+
+
+#### Export the private key from PFX
+
+    openssl pkcs12 -export - filename.pfx -nocerts -out filename-key.pem -nodes
+
+
+
+#### Convert PFX to PEM file
+
+    opensssl pkcs12 -in filename.pfx -nokeys -out filename-cert.pem
+
+
+
+#### Remove passphrase from private key
+
+    openssl rsa -in filename-key.pem -out filename-key2.pem
+
+
+
+#### Convert PFX to key and cert file
+
+    openssl pkcs12 -in filename.pfx -clcerts -nokeys -out filename.cer
+
+    openssl pkcs12 -in filename.pfx -nocerts -nodes -out filename-encrypted.key
+
+    openssl rsa -in filename-encrypted.key -out filename.key
+
+    openssl pkcs12 -nokeys -clcerts -in filename.pfx -out filename.cer
+
+
+
+#### Validating the key and cert (md5 should be the same)
+
+    openssl x509 -noout -modulus -in filename-cert.pem | openssl md5
+
+    openssl rsa -noout -modulus -in filename-key.pem | openssl md5
+
+
+## Docker
+
+#### Enabling non-root user to run Docker client
+
+    gpasswd -a <user name> docker
+
+
+#### Starting an interactive session
+
+    docker run -t -I ubuntu /bin/bash
+
+
+##### Get shell inside running container
+
+    docker exec -I -it <container name> bash
+
+
+#### Creating a new base image
+
+    cat filename.tar | docker import - <image name>
+
+
+#### Inspecting a container
+
+    docker inspect <container name>
+
+
+
+#### Removing docker0 bridge
+
+    service docker stop
+
+    ip link set dev docker0 down
+
+    brctl delbr docker0
+
+    iptables -t nat -F POSTROUTING
+
+    route -n
+
+    systemctl daemon-reload
+
+    service docker start
+
+
+## Mac
+
+#### Fixing hostname
+
+    scutil -set ComputerName "<computer name>"
+
+    scutil -set HostName "<computer name>"
+
+    scutil -set LocalHostName "<computer name>"
+
+
+#### Getting AD Groups
+
+    dscl "/ActiveDirectory/DOMAIN/fqdn" read /Users/userid
