@@ -1,8 +1,8 @@
 # Server Administration Quick Reference
 
 ## Table of Contents
-1. [Filesystem Commands](#Filesystem%20Commands)
-2. [Example2](#example2)
+1. [Filesystem Commands](#filesystem-commands)
+2. [Kubernetes Commands](#kubernetes-commands)
 
 
 ## Introduction
@@ -141,3 +141,169 @@ Alternate version (only shows one level):
     mount /dev/xvdb /mnt/jenkins  
     ll /mnt/jenkins  
     df -h  
+
+
+## Kubernetes Commands
+
+### General Commands
+
+#### Login on Azure
+
+    az aks get-credentials --name <resource name> -g <resource group>
+
+    az aks get-credentials --name <resource name> -g <resource group> --admin
+
+
+
+#### Get Context
+
+    kubectl config -get-contexts
+
+
+
+#### Pods
+
+    kubectl get pods --all-namespaces
+
+    kubectl get pods -l app=nginx-ingress --all-namespaces
+
+    kubectl get pods -l app=nginx-ingress -o wide --namespace=kube-system
+
+    kubectl describe pods <pod name> --namespace=kube-system
+
+
+
+#### Services
+
+    kubectl get services --all-namespaces
+
+    kubectl get svc <service name> --namespace=kube-system
+
+    kubectl describe services --all-namespaces
+
+    kubectl describe svc <service name> --namespace=kube-system
+
+
+
+#### Deployments
+
+    kubectl describe deployment <deployment name>
+
+
+
+#### Configmaps
+
+    kubectl get configmaps
+
+    kubectl get configmaps --namespace=kube-system
+
+    kubectl get configmaps --namespace=kube-system -o yaml
+
+
+
+#### SSH
+
+    kubectl exec -it <pod name> -- /bin/bash
+
+    kubectl exec -it <pod name>-n <namespace> -- /bin/bash
+
+
+
+#### Endpoints
+
+    kubectl get ep
+
+
+
+#### Secrets
+
+    kubectl get secrets --all-namespaces
+
+
+
+#### Ingress
+
+    kubectl get ingress
+
+
+
+#### Events
+
+    kubectl get events --all-namespaces
+
+
+
+#### Logs
+
+    kubectl logs <pod name> --namespace <namespace name>
+
+    kubectl logs -f <pod name>
+
+
+
+#### Horizontal Pod Autoscaler
+
+    kubectl autoscale deployment <deployment name> --cpu-percent=50 --min=1 --max=10
+
+    kubectl get hpa
+
+    kubectl describe hpa
+
+
+
+#### Scale Deployment
+
+    kubectl scale --replicas =3 <deployment name> -n <namespace name>
+
+
+
+### Setting up Ingress
+
+#### Create Cert
+
+    openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out don_test.crt -keyout don_test.key
+
+
+#### Add Cert
+
+    kubectl create secret tls <secret name> --cert=don_test.crt --key=don_test.key
+
+
+
+#### Create Public IP on Azure
+
+    az network public-ip create -g <resource group name> -n <namespace name> --alocation-method static --reverse-fqdn example.westus.cloudapp.azure.com --dns-name example
+
+
+
+#### Create Ingress Controller
+
+    helm install <chart name> --namespace <namspace name> --set controller.service.loadBalancerIP="<insert ip here>" --set controller.replicaCount=2
+
+
+
+#### Deploy App
+
+    kubectl apply -f <yaml filename>
+
+
+
+
+
+### Log Analytics on Azure
+
+#### CPU Graph
+
+    Perf |where CounterName == "cpuUsageNaneCores and ObjectName == "K8SContainer"
+
+    | where TimeGenerated > ago(1d)
+
+    | summarize avg(CounterValue), percentiles(CounterValue, 50, 95) by bin(TimeGenerated, 1h)
+
+
+
+#### Events
+
+    KubeEvents | where TimeGenerated > ago(1d)
+
+    KubeEvents | where SourceComponent == "cluster-autoscaler"
