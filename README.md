@@ -6,9 +6,15 @@
     + [Zeroing out a file](#zeroing-out-a-file)
     + [Grep multiple files across multiple directories](#grep-multiple-files-across-multiple-directories)
     + [Find files larger than 1000000 bytes](#find-files-larger-than-1000000-bytes)
+      - [Linux](#linux)
+      - [HP-UX](#hp-ux)
     + [Find files modified 3 or fewer days ago](#find-files-modified-3-or-fewer-days-ago)
+      - [Linux](#linux-1)
+      - [HP-UX](#hp-ux-1)
     + [Delete object files and print what's deleted](#delete-object-files-and-print-what-s-deleted)
     + [Show list of directories and their sizes in kilobytes](#show-list-of-directories-and-their-sizes-in-kilobytes)
+      - [Linux](#linux-2)
+      - [HP-UX](#hp-ux-2)
     + [Show how much space a directory is taking up in kilobytes](#show-how-much-space-a-directory-is-taking-up-in-kilobytes)
     + [Determine what process has a file open](#determine-what-process-has-a-file-open)
     + [Monitor a directory for open filehandles. Repeat command every second forever.](#monitor-a-directory-for-open-filehandles-repeat-command-every-second-forever)
@@ -61,10 +67,12 @@
     + [Sending a text file via e-mail](#sending-a-text-file-via-e-mail)
     + [Show how many rows and columns your display is set to](#show-how-many-rows-and-columns-your-display-is-set-to)
     + [System logs are located at:](#system-logs-are-located-at-)
+      - [Linux](#linux-3)
+      - [HP-UX](#hp-ux-3)
     + [List all files in tar archive](#list-all-files-in-tar-archive)
     + [Tar a directory](#tar-a-directory)
     + [See which packages are assigned where in a failover](#see-which-packages-are-assigned-where-in-a-failover)
-      - [HP-UX](#hp-ux)
+      - [HP-UX](#hp-ux-4)
       - [AIX](#aix)
     + [Getting a list of installed packages on hp](#getting-a-list-of-installed-packages-on-hp)
     + [Getting list of products from a depot file (HP-UX)](#getting-list-of-products-from-a-depot-file--hp-ux-)
@@ -82,9 +90,9 @@
     + [See all environment variables for a process running on Linux:](#see-all-environment-variables-for-a-process-running-on-linux-)
     + [Getting Centrify info on a user](#getting-centrify-info-on-a-user)
     + [Check if a server is a physical or virtual](#check-if-a-server-is-a-physical-or-virtual)
-      - [Linux](#linux)
+      - [Linux](#linux-4)
       - [AIX](#aix-1)
-      - [HP-UX](#hp-ux-1)
+      - [HP-UX](#hp-ux-5)
       - [Windows](#windows)
     + [List kernel parameters](#list-kernel-parameters)
       - [HP-UX 11.11](#hp-ux-1111)
@@ -96,6 +104,60 @@
     + [Bind key for synchronize-panes in Tmux](#bind-key-for-synchronize-panes-in-tmux)
     + [Switching version of a tool on Redhat](#switching-version-of-a-tool-on-redhat)
     + [Color diff in two columns](#color-diff-in-two-columns)
+- [Networking](#networking)
+    + [Show sockets being used](#show-sockets-being-used)
+    + [Show ports open for listening](#show-ports-open-for-listening)
+    + [Show what process is using a particular port](#show-what-process-is-using-a-particular-port)
+    + [Show all programs with an open network connection](#show-all-programs-with-an-open-network-connection)
+    + [Listen to traffic on a port](#listen-to-traffic-on-a-port)
+    + [Show # of retransmitted network packets](#show---of-retransmitted-network-packets)
+    + [Testing network connection (TCP)](#testing-network-connection--tcp-)
+    + [Testing network connection (UDP)](#testing-network-connection--udp-)
+- [Compiler Stuff](#compiler-stuff)
+    + [List symbols in a binary](#list-symbols-in-a-binary)
+    + [List symbols in a windows binary](#list-symbols-in-a-windows-binary)
+    + [List .o files embedded in .a files (also shows architecture)](#list-o-files-embedded-in-a-files--also-shows-architecture-)
+    + [Extract .o files from .a flle](#extract-o-files-from-a-flle)
+    + [Determining what libraries a binary is dynamically linked to](#determining-what-libraries-a-binary-is-dynamically-linked-to)
+    + [Look for a symbol across multiple files](#look-for-a-symbol-across-multiple-files)
+- [RPM](#rpm)
+  * [RPM Commands](#rpm-commands)
+    + [Check for a package in linux](#check-for-a-package-in-linux)
+    + [Info on a package](#info-on-a-package)
+    + [Info on a package that is not installed](#info-on-a-package-that-is-not-installed)
+    + [List files in a package](#list-files-in-a-package)
+    + [Which rpm owns a particular file](#which-rpm-owns-a-particular-file)
+    + [List files in an rpm archive](#list-files-in-an-rpm-archive)
+    + [Install local rpm file](#install-local-rpm-file)
+    + [List most recently installed rpms](#list-most-recently-installed-rpms)
+    + [List dependencies of an rpm](#list-dependencies-of-an-rpm)
+    + [List Repos](#list-repos)
+    + [Find out what RPM provides file](#find-out-what-rpm-provides-file)
+    + [Get info on a package](#get-info-on-a-package)
+    + [Install a local rpm via yum](#install-a-local-rpm-via-yum)
+    + [Make yum see the lastest packages](#make-yum-see-the-lastest-packages)
+    + [Run Puppet](#run-puppet)
+  * [Mock Commands](#mock-commands)
+    + [Populate chroot environment](#populate-chroot-environment)
+    + [Spawn shell](#spawn-shell)
+    + [Copy files into chroot environment](#copy-files-into-chroot-environment)
+    + [Copy file out of chroot environment](#copy-file-out-of-chroot-environment)
+    + [Install rpms](#install-rpms)
+  * [FPM Commands](#fpm-commands)
+    + [Create a Jenkins .deb package](#create-a-jenkins-deb-package)
+    + [Create a Jenkins rpm package](#create-a-jenkins-rpm-package)
+- [Postgres](#postgres)
+    + [List databases](#list-databases)
+    + [Command line interface](#command-line-interface)
+    + [Connect to a database](#connect-to-a-database)
+    + [List tables](#list-tables)
+- [Services](#services-1)
+    + [Start/stop a service](#start-stop-a-service)
+      - [SysV Init](#sysv-init)
+      - [Systemd](#systemd)
+    + [List all services](#list-all-services)
+    + [Disable/enable a service on startup](#disable-enable-a-service-on-startup)
+
 
 
 
@@ -124,22 +186,22 @@ This is an assorted list of potentially useful Unix commands. These are commands
 
     find . -xdev -size +1000000c
 
-On Linux:
+##### Linux
 
     find . -xdev -size +1000000c -exec ls -al {} \; | sort -k 5n
 
-On HP-UX:
+##### HP-UX
 
     find . -xdev -size +1000000c -exec ls -al {} \; | sort -r +4n
 
 
 #### Find files modified 3 or fewer days ago
 
-On Linux:
+##### Linux
 
     find . -xdev -type f -mtime 3 -exec ls -al {} \; | sort -rk +5n
 
-On HP-UX:
+##### HP-UX
 
     find . -xdev -type f -mtime 3 -exec ls -al {} \; | sort -r +4n
 
@@ -151,11 +213,11 @@ On HP-UX:
 
 #### Show list of directories and their sizes in kilobytes
 
-On Linux:
+##### Linux
 
     du -xhk | sort -k 1n
 
-On HP-UX:
+##### HP-UX
 
     du -xk | sort +0n
 
@@ -513,11 +575,11 @@ alternate command:
 
 #### System logs are located at:
 
-On Linux:
+##### Linux
 
     /var/log/messages
 
-On HP-UX:
+##### HP-UX
 
     /var/adm/syslog
 
@@ -756,3 +818,338 @@ List details about a particular parameter
 #### Color diff in two columns
 
     sdiff -w 230 <file 1> <file 2> | colordiff | less -r
+
+
+## Networking
+
+#### Show sockets being used
+
+    ss
+
+
+
+#### Show ports open for listening
+
+    netstat -a | grep LISTEN | grep -v unix
+
+
+
+#### Show what process is using a particular port
+
+  lsof -i :9703
+
+
+Alternatively, you can run:
+
+    netstat -Aan | grep <port number>
+
+    rmsock <socket number> tcpcb
+
+    fuser -v -n tcp 5432
+
+
+
+#### Show all programs with an open network connection
+
+    lsof -l
+
+
+
+#### Listen to traffic on a port
+
+    tcpdump -nn -I eth0 port 5432
+
+    sudo tcpdump -nn
+
+
+
+#### Show # of retransmitted network packets
+
+    netstat -s -t | egrep "trans|select"
+
+
+
+#### Testing network connection (TCP)
+
+    telnet localhost 9000
+
+    nc -vz localhost 9000
+
+
+
+#### Testing network connection (UDP)
+
+    nc -vzu localhost 5514
+
+
+## Compiler Stuff
+
+#### List symbols in a binary
+
+    nm -a <filename>
+
+    dump -Tv <filename>
+
+
+
+#### List symbols in a windows binary
+
+    set PATH to "C:\Program Files\Microsoft Visual Studio 9.0\VC\bin"
+
+    cmd
+
+    cd "C:\Program Files\Microsoft Visual Studio 9.0\VC\bin"
+
+    vcvarsall.bat
+
+    cd "dir_where_your_binary_is"
+
+    dumpbin /all <filename>
+
+
+
+#### List .o files embedded in .a files (also shows architecture)
+
+    objdump -f <filename>
+
+
+
+#### Extract .o files from .a flle
+
+    ar x <filename>
+
+
+#### Determining what libraries a binary is dynamically linked to
+
+    ldd <filename>
+
+
+#### Look for a symbol across multiple files
+
+    find . -name "*.sl" .-exec sh -c 'echo lib: $0; nm -a $0 | grep tp_sleep' {} \;
+
+
+## RPM
+
+### RPM Commands
+
+#### Check for a package in linux
+
+    rpm -qa | grep ssh
+
+
+
+#### Info on a package
+
+    rpm -qi <package name>
+
+
+
+#### Info on a package that is not installed
+
+    rpm -qip <file name>
+
+
+
+#### List files in a package
+
+    rpm -ql <package name>
+
+
+
+#### Which rpm owns a particular file
+
+    rpm -qf <filename>
+
+
+
+#### List files in an rpm archive
+
+    rpm -qpil <filename>
+
+
+
+#### Install local rpm file
+
+    rpm -ivh <filename>
+
+
+
+#### List most recently installed rpms
+
+    rpm -a --last | head -10
+
+
+
+#### List dependencies of an rpm
+
+    rpm -qR <package name>
+
+
+
+#### List Repos
+
+    yum repolist enabled
+
+    yum repolist all
+
+    zypper repos
+
+
+
+#### Find out what RPM provides file
+
+    yum whatprovides <filename>
+
+
+
+#### Get info on a package
+
+    yum info <filename>
+
+
+
+#### Install a local rpm via yum
+
+    yum localinstall <file name>
+
+
+
+#### Make yum see the lastest packages
+
+    yum clean expire-cache
+
+
+#### Run Puppet
+
+    puppet agent -t
+
+
+
+### Mock Commands
+
+#### Populate chroot environment
+
+    mock -r epel-6-i386 --init
+
+    mock -r epel-6-x86_64 --init
+
+
+
+#### Spawn shell
+
+    mock -r epel-i386 --shell
+
+    mock -r epel-6-x86_64 --shell
+
+
+
+#### Copy files into chroot environment
+
+    mock -r epel-6-i386 --copyin <filename> /
+
+
+
+#### Copy file out of chroot environment
+
+    mock -r epel--i386 --copyout <file path> .
+
+
+
+#### Install rpms
+
+    mock -r epel-6-i386 --install <rpm packagename>
+
+    mock -r epel-6-x86_64 --install <rpm packagename>
+
+
+### FPM Commands
+
+#### Create a Jenkins .deb package
+
+    fpm -s dir -t deb -n jenkins -v 1.396 --prefix /opt/jenkins -d "sun-java6-jre (> 0)" jenkins.war
+
+
+
+#### Create a Jenkins rpm package
+
+    fpm -s dir -t deb -n jenkins -v 1.396 --prefix /opt/jenkins -d "sun-java6-jre (> 0)" jenkins.war
+
+
+## Postgres
+
+#### List databases
+
+    psql -l
+
+
+#### Command line interface
+
+    psql
+
+
+#### Connect to a database
+
+    \c <database name>
+
+
+#### List tables
+
+    \d
+
+
+## Services
+
+#### Start/stop a service
+
+##### SysV Init
+
+    service <service name> start
+
+    service <service name> stop
+
+    service <service name> restart
+
+    service <service name> status
+
+
+
+##### Systemd
+
+    systemctl start <service name>
+
+    systemctl stop <service name>
+
+    systemctl restart <service name>
+
+    systemctl status <service name>
+
+
+
+#### List all services
+
+SysV Init
+
+    chkconfig –list
+
+
+Systemd
+
+    systemctl list-unit-files --type=service  
+
+
+
+#### Disable/enable a service on startup
+
+SysV Init
+
+    chkconfig <service name> off
+
+    chkconfig <service name> on
+
+
+Systemd
+
+    systemctl disable <service name>
+
+    systemctl enable<service name>
