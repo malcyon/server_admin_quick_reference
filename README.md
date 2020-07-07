@@ -1,5 +1,10 @@
 # Server Administration Quick Reference
 
+## Table of Contents
+1. [Filesystem Commands](#Filesystem%20Commands)
+2. [Example2](#example2)
+
+
 ## Introduction
 
 This is an assorted list of potentially useful Unix commands. These are commands I've found useful in the past that I don't want to forget.
@@ -7,18 +12,18 @@ This is an assorted list of potentially useful Unix commands. These are commands
 
 ## Filesystem Commands
 
-### Zeroing out a file
+#### Zeroing out a file
 
     cat/dev/null > <filename>
 
 
 
-### Grep multiple files across multiple directories
+#### Grep multiple files across multiple directories
 
     find . -type f -print | xargs fgrep -i -l "text_to_grep_for"
 
 
-### Find files larger than 1000000 bytes
+#### Find files larger than 1000000 bytes
 
     ll -R <directoryname> | awk '{if ($5 > 1000000) print $5 "\t" $9}'
 
@@ -33,7 +38,7 @@ On HP-UX:
     find . -xdev -size +1000000c -exec ls -al {} \; | sort -r +4n
 
 
-### Find files modified 3 or fewer days ago
+#### Find files modified 3 or fewer days ago
 
 On Linux:
 
@@ -44,12 +49,12 @@ On HP-UX:
     find . -xdev -type f -mtime 3 -exec ls -al {} \; | sort -r +4n
 
 
-### Delete object files and print what's deleted
+#### Delete object files and print what's deleted
 
     find . -name "*.o" -exec echo 'rm -f {}' \; -exec rm -f {} \;
 
 
-### Show list of directories and their sizes in kilobytes
+#### Show list of directories and their sizes in kilobytes
 
 On Linux:
 
@@ -60,7 +65,7 @@ On HP-UX:
     du -xk | sort +0n
 
 
-### Show how much space a directory is taking up in kilobytes
+#### Show how much space a directory is taking up in kilobytes
 
     du -xks
 
@@ -71,7 +76,7 @@ Alternate version (only shows one level):
 
 
 
-### Determine what process has a file open
+#### Determine what process has a file open
 
     fuser -u /path/to/file
 
@@ -79,29 +84,29 @@ Alternate version (only shows one level):
 
 
 
-### Monitor a directory for open filehandles. Repeat command every second forever.
+#### Monitor a directory for open filehandles. Repeat command every second forever.
 
     while true; do lsof +d /tmp; sleep 1; done
 
 
 
-### Show space on drives
+#### Show space on drives
 
     df -k
 
 
-### Querying file locks max value on HP-UX
+#### Querying file locks max value on HP-UX
 
     kcusage | grep nflocks
 
 
-### Create a file of a given size
+#### Create a file of a given size
 
     dd if=/dev/zero of=don.out bs=1024 count=10240
 
 
 
-### Delete file by inode
+#### Delete file by inode
 
     ls -li
 
@@ -109,25 +114,25 @@ Alternate version (only shows one level):
 
 
 
-### Search/Replace in a file
+#### Search/Replace in a file
 
     sed -ri 's/(test1|test2)/value3/g' app.cfg
 
 
 
-### Delete logfiles without an open file handle
+#### Delete logfiles without an open file handle
 
     find /tmp -type f -exec bash -c "fuser {} || rm {}" \;
 
 
 
-### Determine if it is an HDD or SSD (0 means SSD, 1 means HDD)
+#### Determine if it is an HDD or SSD (0 means SSD, 1 means HDD)
 
     cat /sys/block/sdc/queue/rotational  
 
 
 
-### Manually formatting and mounting a block device
+#### Manually formatting and mounting a block device
 
     lsblk  
     file -s /dev/xvdb  
