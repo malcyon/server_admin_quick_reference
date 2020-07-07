@@ -3,6 +3,7 @@
 ## Table of Contents
 1. [Filesystem Commands](#filesystem-commands)
 2. [Kubernetes Commands](#kubernetes-commands)
+3. [Vim](#vim)
 
 
 ## Introduction
@@ -328,9 +329,9 @@ alternate command:
 #### Comment a block of text in vim
 
 - control-V
-- <highlight text with cursor> (use arrow keys. Only one column will be highlighted)
+- \<highlight text with cursor\> (use arrow keys. Only one column will be highlighted)
 - shift-I
-- #
+- \#
 - escape
 
 
