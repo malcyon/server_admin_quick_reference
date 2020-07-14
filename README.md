@@ -86,7 +86,7 @@ This is an assorted list of Unix commands. These are commands I've found useful 
     + [Print contents of a file in reverse order](#print-contents-of-a-file-in-reverse-order)
     + [Get checksum of a file](#get-checksum-of-a-file)
     + [Search contents of all files in a directory for a string](#search-contents-of-all-files-in-a-directory-for-a-string)
-    + [Grep string, including 10 lines before and after](#grep-string-including-10-lines-before-and-afterr)
+    + [Grep string, including 10 lines before and after](#grep-string-including-10-lines-before-and-after)
     + [Repeat a command every 5 seconds](#repeat-a-command-every-5-seconds)
     + [Show OS limits for a process (Linux only)](#show-os-limits-for-a-process--linux-only-)
     + [Print file in binary format](#print-file-in-binary-format)
