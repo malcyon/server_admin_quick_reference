@@ -252,7 +252,7 @@ This is an assorted list of Unix commands. These are commands I've found useful 
 
 Show how much space subdirectories are taking up:
 
-  du -shx $(ls -d */)
+    du -shx $(ls -d */)
 
 
 
