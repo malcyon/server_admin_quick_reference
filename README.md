@@ -18,7 +18,7 @@ This is an assorted list of Unix commands. These are commands I've found useful 
     + [Show list of directories and their sizes in kilobytes](#show-list-of-directories-and-their-sizes-in-kilobytes)
       - [Linux](#linux-2)
       - [HP-UX](#hp-ux-2)
-    + [Show how much space a directory is taking up in kilobytes](#show-how-much-space-a-directory-is-taking-up-in-kilobytes)
+    + [Show how much space a directory is taking up](#show-how-much-space-a-directory-is-taking-up)
     + [Determine what process has a file open](#determine-what-process-has-a-file-open)
     + [Monitor a directory for open filehandles. Repeat command every second forever.](#monitor-a-directory-for-open-filehandles-repeat-command-every-second-forever)
     + [Show space on drives](#show-space-on-drives)
@@ -245,14 +245,15 @@ This is an assorted list of Unix commands. These are commands I've found useful 
     du -xk | sort +0n
 
 
-#### Show how much space a directory is taking up in kilobytes
-
-    du -xks
-
-
-Alternate version (only shows one level):
+#### Show how much space a directory is taking up
 
     du -shx
+
+
+Show how much space subdirectories are taking up:
+
+  du -shx $(ls -d */)
+
 
 
 
