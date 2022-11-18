@@ -184,6 +184,13 @@ This is an assorted list of Unix commands. These are commands I've found useful 
 - [Mac](#mac)
     + [Fixing hostname](#fixing-hostname)
     + [Getting AD Groups](#getting-ad-groups)
+- [Git](#git)
+  * [Get changed files between commits](#get-changed-files-between-commits)
+  * [Get changes across all branches](#get-changes-across-all-branches)
+  * [Get changed files across all branches](#get-changed-files-across-all-branches)
+  * [List large blobs in repository](#list-large-blobs-in-repository)
+  * [Find branches that contain a commit](#find-branches-that-contain-a-commit)
+  * [Find commit that contains a blob](#find-commit-that-contains-a-blob)
 
 
 
