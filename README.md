@@ -1318,3 +1318,40 @@ Systemd
 #### Getting AD Groups
 
     dscl "/ActiveDirectory/DOMAIN/fqdn" read /Users/userid
+    
+
+## Git
+
+### Get changed files between commits
+
+    git diff --name-only <commit id> HEAD 
+    git diff --name-only <commit id> HEAD 
+    
+### Get changes across all branches
+
+    git log --name-only --since "5 days ago" --until="now" --all
+    
+### Get changed files across all branches
+
+    git log --name-status --since "5 days ago" --until="now" --all | grep -E '^[A-Z]\b' | sort -k 2,2 -u
+    
+### List large blobs in repository
+
+    git rev-list --objects --all |
+      git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+      sed -n 's/^blob //p' |
+      sort --numeric-sort --key=2 |
+      cut -c 1-12,41- |
+      $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+      
+### Find branches that contain a commit
+
+    git branch -a --contains <commit>
+   
+### Find commit that contains a blob
+
+    git whatchanged --all --find-object=<blob id>
+
+    
+
+
