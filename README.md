@@ -201,8 +201,9 @@ This is an assorted list of Unix commands. These are commands I've found useful 
 
 #### Zeroing out a file
 
-    cat/dev/null > <filename>
-
+```bash
+cat /dev/null > <filename>
+```
 
 
 #### Grep multiple files across multiple directories
